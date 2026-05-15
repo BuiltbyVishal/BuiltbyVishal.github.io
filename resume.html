@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Resume & Projects — Vishal Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base (Matches your main theme) ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #141414;
+      --border:    rgba(255,255,255,0.08);
+      --accent:    #a78bfa;
+      --accent-dim:#7c5cbf;
+      --text:      #f0eee8;
+      --muted:     rgba(240,238,232,0.5);
+      --font-head: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* ── Light Mode Variables & Overrides ── */
+    body.light-mode {
+      --bg: #f8fafc;         
+      --surface: #ffffff;    
+      --border: rgba(0, 0, 0, 0.12); /* Slightly darker border for better visibility */
+      --text: #0f172a;       
+      --muted: #475569;      
+    }
+    
+    /* 1. Fix the sticky navbar background so it's not dark */
+    body.light-mode .navbar {
+      background: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* 2. Fix transparent white backgrounds (Skills, Projects, Inputs, Forms) */
+    body.light-mode .skill-tag,
+    body.light-mode .project-item,
+    body.light-mode input,
+    body.light-mode textarea {
+      background: rgba(0, 0, 0, 0.03) !important;
+      color: var(--text) !important;
+      border-color: var(--border) !important;
+    }
+
+    /* 3. Fix inline styles (Like the "View Complete History" link) */
+    body.light-mode [style*="rgba(255,255,255,0.02)"],
+    body.light-mode [style*="rgba(255, 255, 255, 0.02)"] {
+      background: rgba(0, 0, 0, 0.03) !important;
+    }
+    
+    /* 4. Fix any hardcoded white text */
+    body.light-mode [style*="color: #fff"],
+    body.light-mode [style*="color: white"] {
+      color: var(--text) !important;
+    }
+    
+    /* Theme Toggle Button Style */
+    .theme-toggle {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      z-index: 100;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      padding: 40px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ── Header ── */
+    .header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--accent); }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: 36px;
+      color: var(--text);
+    }
+
+    /* ── Smooth Scrolling ── */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ── Sticky Glass Navigation ── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.7); /* Semi-transparent dark background */
+      backdrop-filter: blur(12px);       /* The Apple-style blur effect */
+      -webkit-backdrop-filter: blur(12px);
+      padding: 16px 0;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-link:hover {
+      color: var(--accent);
+    }
+    
+    /* Push sections down slightly so the sticky header doesn't cover the titles */
+    .section-block {
+      scroll-margin-top: 80px; 
+    }
+
+    /* ── Sections ── */
+    .section-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Timeline (No scrolling limits here!) ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      padding-left: 16px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      background: var(--accent-dim);
+      border-radius: 2px;
+    }
+    .timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .timeline-item:first-child { padding-top: 0; }
+    .tl-period { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+    .tl-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+    .tl-org { font-size: 14px; color: var(--muted); }
+
+    /* ── Skills Grid ── */
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill-tag {
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+
+    /* ── Projects Grid ── */
+    .project-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) { .project-list { grid-template-columns: 1fr; } }
+    .project-item {
+      padding: 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .proj-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .proj-desc { font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+    .proj-link { font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+    <svg id="moon-icon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+
+  <!-- ── Sticky Navigation Bar ── -->
+  <nav class="navbar">
+    <a href="index.html" class="back-btn" style="margin-bottom: 0;">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Main
+    </a>
+    <div class="nav-links">
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#certificates" class="nav-link">Certs</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#skills" class="nav-link">Skills</a>
+    </div>
+  </nav>
+
+  <h1 class="page-title" style="margin-bottom: 40px;">Complete History</h1>
+
+  <!-- Added ID tags to each section so the navigation links work -->
+  <div class="section-block" id="experience">
+    <p class="section-label">💼 Full Experience</p>
+    <div class="timeline" id="full-experience"><p style="color:var(--muted);font-size:13px;">Loading...</p></div>
+  </div>
+
+  <div class="section-block" id="education">
+    <p class="section-label">🎓 Education</p>
+    <div class="timeline" id="full-education"><p style="color:var(--muted);font-size:13px;">Loading...</p></div>
+  </div>
+
+  <div class="section-block" id="certificates">
+    <p class="section-label">📜 All Certificates</p>
+    <div class="timeline" id="full-certificates"><p style="color:var(--muted);font-size:13px;">Loading...</p></div>
+  </div>
+
+  <div class="section-block" id="projects">
+    <p class="section-label">💻 All GitHub Projects</p>
+    <div class="project-list" id="full-projects"><p style="color:var(--muted);font-size:13px;">Loading...</p></div>
+  </div>
+
+  <div class="section-block" id="skills">
+    <p class="section-label">⚡ All Skills</p>
+    <div class="skills-wrap" id="full-skills"><p style="color:var(--muted);font-size:13px;">Loading...</p></div>
+  </div>
+
+  
+
+<script>
+  // Math engine
+  function calculateDuration(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = (endDate.toLowerCase().includes('present') || endDate.trim() === '') ? new Date() : new Date(endDate);
+    if (isNaN(start.getTime())) return ""; 
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    if (months < 0) { years--; months += 12; }
+    let durationStr = "";
+    if (years > 0) durationStr += years + (years === 1 ? " yr " : " yrs ");
+    if (months > 0) durationStr += months + (months === 1 ? " mo" : " mos");
+    if (years === 0 && months === 0) {
+      const diffDays = Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24));
+      durationStr = diffDays + (diffDays === 1 ? " day" : " days");
+    }
+    return durationStr.trim();
+  }
+
+  // ALL GITHUB PROJECTS (per_page=100)
+  async function fetchAllProjects() {
+    try {
+      const response = await fetch(`https://api.github.com/users/BuiltbyVishal/repos?sort=updated&per_page=100`);
+      const repos = await response.json();
+      const container = document.getElementById('full-projects');
+      container.innerHTML = '';
+      repos.forEach(repo => {
+        container.innerHTML += `
+          <div class="project-item">
+            <h3 class="proj-title">${repo.name.replace(/-/g, ' ')}</h3>
+            <p class="proj-desc">${repo.description || 'No description provided.'}</p>
+            <a class="proj-link" href="${repo.html_url}" target="_blank">View Code →</a>
+          </div>`;
+      });
+    } catch (e) { document.getElementById('full-projects').innerHTML = 'Error loading projects.'; }
+  }
+
+  // ALL GOOGLE SHEETS DATA (No .slice limitations)
+  async function fetchAllData() {
+    const urls = {
+      certs: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSweNkxqbgnjaVlQyflv8I6zH7LQQnyegJ7VmUSWkzkhVIcivHMOwbg1M0EY2jkCHS9367AdaXElwYM/pub?output=csv',
+      exp: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQU7gD52n7Yz5UmzVKMvcsQKRBpaDho7GXLGh1ZimRqf90fr89RkiwgQd1UC6uZCTrV1AJFZWEcUv3d/pub?output=csv',
+      edu: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTs_ehVoP-DmEPFfJcJBhBC9Al2Y8mAFPfGOFRlGG9IIGdxlRmgF1Es_HEf21IsGFwHjqsR7pu0G8wM/pub?output=csv',
+      skills: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuEzsg0hsEr4jGrU3sXkhxrF2xmSSjwuvmnfjID5KjmfjMPCwPwJG4mbTLO65b_8WP3n3KU67yv1aL/pub?output=csv'
+    };
+
+    // Skills
+    fetch(urls.skills).then(r => r.text()).then(data => {
+      const rows = data.split('\n').slice(1).filter(r => r.trim() !== '').reverse();
+      document.getElementById('full-skills').innerHTML = rows.map(r => `<div class="skill-tag">${r.split(',')[0].replace(/(^"|"$)/g, '').trim()}</div>`).join('');
+    });
+
+    // Certs
+    fetch(urls.certs).then(r => r.text()).then(data => {
+      const rows = data.split('\n').slice(1).filter(r => r.trim() !== '').reverse();
+      document.getElementById('full-certificates').innerHTML = rows.map(r => {
+        const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/(^"|"$)/g, '').trim());
+        return `<div class="timeline-item"><p class="tl-period">${c[0]}</p><p class="tl-title">${c[1]}</p><p class="tl-org">${c[2]}</p></div>`;
+      }).join('');
+    });
+
+    // Education
+    fetch(urls.edu).then(r => r.text()).then(data => {
+      const rows = data.split('\n').slice(1).filter(r => r.trim() !== '').reverse();
+      document.getElementById('full-education').innerHTML = rows.map(r => {
+        const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/(^"|"$)/g, '').trim());
+        let p = `${c[0]} – ${c[1]||'Present'}`;
+        let dur = calculateDuration(c[0], c[1]);
+        if(dur) p += ` · ${dur}`;
+        return `<div class="timeline-item"><p class="tl-period">${p}</p><p class="tl-title">${c[2]}</p><p class="tl-org">${c[3]}</p></div>`;
+      }).join('');
+    });
+
+    // Experience
+    fetch(urls.exp).then(r => r.text()).then(data => {
+      const rows = data.split('\n').slice(1).filter(r => r.trim() !== '').reverse();
+      document.getElementById('full-experience').innerHTML = rows.map(r => {
+        const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/(^"|"$)/g, '').trim());
+        const org = c[0]; let roles = [];
+        if (c[1]) roles.push({ title: c[1], start: c[2]||'', end: c[3]||'Present' });
+        if (c[4]) roles.push({ title: c[4], start: c[5]||'', end: c[6]||'Present' });
+        roles.reverse();
+        let rHtml = roles.map((role, i) => {
+          let p = `${role.start} – ${role.end}`; let dur = calculateDuration(role.start, role.end); if(dur) p+= ` · ${dur}`;
+          return `<div style="padding-bottom:${i===roles.length-1?'0':'12px'}"><p class="tl-title">${role.title}</p><p class="tl-period">${p}</p></div>`;
+        }).join('');
+        return `<div class="timeline-item"><p class="tl-org" style="color:var(--text);font-weight:600;margin-bottom:8px;">${org}</p>${rHtml}</div>`;
+      }).join('');
+    });
+  }
+
+  fetchAllProjects();
+  fetchAllData();
+
+  // --- LIGHT/DARK MODE TOGGLE ---
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  // Check if the user already chose a theme in the past
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'light') {
+    body.classList.add('light-mode');
+  }
+
+  themeToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('light-mode');
+    
+    // Save their preference to their browser
+    if (body.classList.contains('light-mode')) {
+      localStorage.setItem('theme', 'light');
+    } else {
+      localStorage.setItem('theme', 'dark');
+    }
+  });
+
+</script>
+</body>
+</html>
