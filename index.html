@@ -1482,43 +1482,47 @@
       }
 
 
-     // FETCH CERTIFICATES (Clean & Simple Version)
-  async function fetchCertificates() {
-    // ⚠️ Keep your existing Google Sheet CSV link here!
-    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSweNkxqbgnjaVlQyflv8I6zH7LQQnyegJ7VmUSWkzkhVIcivHMOwbg1M0EY2jkCHS9367AdaXElwYM/pubhtml'; 
-    const container = document.getElementById('full-certificates');
-
-    try {
-      const response = await fetch(csvUrl);
-      if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.text();
-
-      // Read rows, skip header, reverse so newest is on top
-      const rows = data.split('\n').slice(1).filter(row => row.trim() !== '').reverse();
-      container.innerHTML = ''; 
-
-      rows.forEach(row => {
-        // Parse CSV handling commas inside quotes
-        const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/(^"|"$)/g, '').trim());
+     // FETCH CERTIFICATES (Fixed Version)
+      async function fetchCertificates() {
+        // FIX 1: Changed the link ending to ?output=csv
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSweNkxqbgnjaVlQyflv8I6zH7LQQnyegJ7VmUSWkzkhVIcivHMOwbg1M0EY2jkCHS9367AdaXElwYM/pub?output=csv'; 
         
-        const date = columns[0] || '';
-        const title = columns[1] || '';
-        const org = columns[2] || '';
+        // FIX 2: Matched the ID to your HTML
+        const container = document.getElementById('dynamic-certificates');
 
-        const certHTML = `
-          <div class="timeline-item">
-            <p class="tl-period">${date}</p>
-            <p class="tl-title">${title}</p>
-            <p class="tl-org">${org}</p>
-          </div>
-        `;
-        container.innerHTML += certHTML;
-      });
-    } catch (error) {
-      console.error('Error fetching certificates:', error);
-      container.innerHTML = '<p style="color: #ef4444; font-size: 13px;">Failed to load certificates.</p>';
-    }
-  }
+        try {
+          const response = await fetch(csvUrl);
+          if (!response.ok) throw new Error('Network response was not ok');
+          const data = await response.text();
+
+          // Read rows, skip header, reverse so newest is on top
+          const rows = data.split('\n').slice(1).filter(row => row.trim() !== '').reverse();
+          container.innerHTML = ''; 
+
+          rows.forEach(row => {
+            // Parse CSV handling commas inside quotes
+            const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/(^"|"$)/g, '').trim());
+            
+            const date = columns[0] || '';
+            const title = columns[1] || '';
+            const org = columns[2] || '';
+
+            const certHTML = `
+              <div class="timeline-item">
+                <p class="tl-period">${date}</p>
+                <p class="tl-title">${title}</p>
+                <p class="tl-org">${org}</p>
+              </div>
+            `;
+            container.innerHTML += certHTML;
+          });
+        } catch (error) {
+          console.error('Error fetching certificates:', error);
+          if (container) {
+            container.innerHTML = '<p style="color: #ef4444; font-size: 13px;">Failed to load certificates.</p>';
+          }
+        }
+      }
       
       // 3. FETCH EXPERIENCE
       async function fetchExperience() {
