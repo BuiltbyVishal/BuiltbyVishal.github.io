@@ -897,6 +897,31 @@
         color: var(--text);
       }
 
+      /* ── SKELETON LOADERS ── */
+      .skeleton {
+        background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite linear;
+        border-radius: 6px;
+      }
+      
+      /* Light mode fix for skeletons */
+      body.light-mode .skeleton {
+        background: linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.09) 50%, rgba(0,0,0,0.04) 75%);
+        background-size: 200% 100%;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* Skeleton Shapes */
+      .skel-line { height: 14px; margin-bottom: 8px; width: 100%; }
+      .skel-title { height: 18px; margin-bottom: 12px; width: 60%; }
+      .skel-box { height: 90px; width: 100%; border-radius: 12px; margin-bottom: 16px; }
+      .skel-tag { height: 38px; width: 100%; border-radius: 10px; }
+
       /* ── Responsive ── */
       @media (max-width: 768px) {
         body {
@@ -1078,11 +1103,10 @@
           </svg>
           Skills
         </p>
-        <div class="skills-wrap" id="dynamic-skills" role="list">
-          <p style="font-size: 13px; color: var(--muted); grid-column: span 2">
-            Loading skills...
-          </p>
-        </div>
+        <div class="skeleton skel-tag"></div>
+        <div class="skeleton skel-tag"></div>
+        <div class="skeleton skel-tag"></div>
+        <div class="skeleton skel-tag"></div>
       </section>
 
       <!-- ── GitHub Activity ── -->
@@ -1115,10 +1139,15 @@
           </svg>
           Experience
         </p>
-        <div class="timeline" id="dynamic-experience">
-          <p style="font-size: 13px; color: var(--muted); padding-left: 14px">
-            Loading experience...
-          </p>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title"></div>
+          <div class="skeleton skel-line" style="width: 80%;"></div>
+        </div>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title" style="width: 50%;"></div>
+          <div class="skeleton skel-line" style="width: 70%;"></div>
         </div>
       </section>
 
@@ -1131,10 +1160,15 @@
           </svg>
           Education
         </p>
-        <div class="timeline" id="dynamic-education">
-          <p style="font-size: 13px; color: var(--muted); padding-left: 14px">
-            Loading education...
-          </p>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title"></div>
+          <div class="skeleton skel-line" style="width: 80%;"></div>
+        </div>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title" style="width: 50%;"></div>
+          <div class="skeleton skel-line" style="width: 70%;"></div>
         </div>
       </section>
 
@@ -1148,11 +1182,8 @@
           </svg>
           Recent Projects
         </p>
-        <div class="project-list" id="github-projects">
-          <p style="font-size: 13px; color: var(--muted)">
-            Loading projects from GitHub...
-          </p>
-        </div>
+        <div class="skeleton skel-box"></div>
+        <div class="skeleton skel-box"></div>
       </section>
 
       <!-- ── Certificates (Auto-updates from Google Sheets) ── -->
@@ -1164,10 +1195,15 @@
           </svg>
           Certificates
         </p>
-        <div class="timeline" id="dynamic-certificates">
-          <p style="font-size: 13px; color: var(--muted); padding-left: 14px">
-            Loading certificates...
-          </p>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title"></div>
+          <div class="skeleton skel-line" style="width: 80%;"></div>
+        </div>
+        <div class="timeline-item" style="border: none;">
+          <div class="skeleton skel-line" style="width: 30%;"></div>
+          <div class="skeleton skel-title" style="width: 50%;"></div>
+          <div class="skeleton skel-line" style="width: 70%;"></div>
         </div>
       </section>
 
