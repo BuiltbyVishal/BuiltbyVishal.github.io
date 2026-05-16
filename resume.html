@@ -309,7 +309,7 @@
     if (months < 0) { years--; months += 12; }
     let durationStr = "";
     if (years > 0) durationStr += years + (years === 1 ? " yr " : " yrs ");
-    if (months > 0) durationStr += months + (months === 1 ? " mo" : " mos");
+    if (months > 0) durationStr += months + (months === 1 ? " mo" : " mon");
     if (years === 0 && months === 0) {
       const diffDays = Math.ceil(Math.abs(end - start) / (1000 * 60 * 60 * 24));
       durationStr = diffDays + (diffDays === 1 ? " day" : " days");
